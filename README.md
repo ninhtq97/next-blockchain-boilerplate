@@ -83,7 +83,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
   [x] Hook call api
   [x] Hook filter query api
   [x] Hook meta data response api
-  [-] Hook outside click
+  [x] Hook outside click
   [-] Hook get contracts
   [-] Hook get info current wallet
   [x] Hook debounce change

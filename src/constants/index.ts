@@ -3,10 +3,7 @@ export enum Games {
   IZZY = 'izzy',
 }
 
-export const PAGE = {
-  DEFAULT: 1,
-  SIZE: 10,
-};
+export const PAGE = { NUMBER: 1, SIZE: 10 };
 
 export const BATCH_SIZE = 100;
 
