@@ -1,7 +1,5 @@
 export type TStatus = 'FAIL' | 'IDLE' | 'PROCESSING' | 'SUCCESS';
-
 export type Position = 'top' | 'bottom' | 'left' | 'right';
-
 export type Coins = 'busd' | 'usdt';
 
 export type TMeta = {

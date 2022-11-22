@@ -86,5 +86,6 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
   [-] Hook outside click
   [-] Hook get contracts
   [-] Hook get info current wallet
-  [-] Hook debounce change
+  [x] Hook debounce change
+  [-] Hook handle error
   ```

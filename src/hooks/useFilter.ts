@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
+import { excludeEmptyValue } from 'utils';
 
 type TFilter = typeof initialState & Record<string, any>;
 
@@ -9,7 +10,8 @@ const useFilter = (state?: Record<string, any>) => {
   const takeOptions = [10, 25, 50];
 
   useEffect(() => {
-    Object.keys(filter).forEach((k) => !filter[k] && delete filter[k]);
+    const newFilter = excludeEmptyValue(filter);
+    setFilter(newFilter);
   }, [filter]);
 
   const onChangeFilter = useCallback((data: Record<string, any>) => {

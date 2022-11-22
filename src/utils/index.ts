@@ -59,7 +59,7 @@ export const animateNumber = (
   window.requestAnimationFrame(step);
 };
 
-export const excludeEmptyValue = (obj: Record<string, unknown>) => {
+export const excludeEmptyValue = <T extends {}>(obj: T): T => {
   Object.keys(obj).forEach((k) => !obj[k] && delete obj[k]);
   return obj;
 };
