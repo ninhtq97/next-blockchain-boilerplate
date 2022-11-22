@@ -1,4 +1,5 @@
 import Icon from 'components/Icon';
+import useDebounce from 'hooks/useDebounce';
 import { forwardRef, useEffect, useState } from 'react';
 import { unique } from 'utils';
 import Popover from '../Popover';
@@ -45,6 +46,8 @@ const Select = forwardRef<HTMLDivElement, Props>(function Render(
   const [searchValue, setSearchValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
+  const debounceValue = useDebounce(searchValue, 300);
+
   useEffect(() => {
     let defaultSelected: Option[] = [];
     const isArray = Array.isArray(value);
@@ -66,7 +69,7 @@ const Select = forwardRef<HTMLDivElement, Props>(function Render(
         : option.value,
     );
     setSelected((prev) => (isMultiple ? unique([...prev, option]) : [option]));
-    searchValue && setSearchValue('');
+    debounceValue && setSearchValue('');
   };
 
   const removeSelected = (
@@ -148,7 +151,7 @@ const Select = forwardRef<HTMLDivElement, Props>(function Render(
             onChange={selectOption}
             isLoading={isLoading}
             isFilterSearch={isFilterSearch}
-            searchValue={searchValue}
+            searchValue={debounceValue}
             setSearchValue={setSearchValue}
           />
         )}

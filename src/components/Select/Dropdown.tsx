@@ -1,4 +1,3 @@
-import useDebounce from 'hooks/useDebounce';
 import { useCallback, useState } from 'react';
 import { Option } from '.';
 import Input from '../Input';
@@ -22,7 +21,6 @@ const Dropdown: React.FC<Props> = ({
   searchValue,
   setSearchValue,
 }) => {
-  const { debounce } = useDebounce();
   const [keyword, setKeyword] = useState('');
 
   const selectOptionValue = (optionValue) => {
@@ -43,9 +41,9 @@ const Dropdown: React.FC<Props> = ({
 
   const onChangeKeyword = useCallback(
     (newValue: string) => {
-      debounce(newValue, setSearchValue);
+      setSearchValue(newValue);
     },
-    [debounce, setSearchValue],
+    [setSearchValue],
   );
 
   return (

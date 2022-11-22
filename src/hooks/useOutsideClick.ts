@@ -8,9 +8,9 @@ const useOutsideClick = (
 ) => {
   useEffect(() => {
     const onClick = (e) => {
-      const isAnyIgnoredElementAncestorOfTarget = $refs.some(($ref) =>
-        $ref.current!.contains(e.target),
-      );
+      const isAnyIgnoredElementAncestorOfTarget = $refs.some(($ref) => {
+        return $ref.current && $ref.current.contains(e.target);
+      });
 
       if (
         (e.button === 0 || e.button === 2) &&
@@ -20,10 +20,7 @@ const useOutsideClick = (
       }
     };
 
-    const $listeningElement = $listeningElementRef?.current || document;
-
-    console.log('$listeningElement:', $listeningElement);
-    console.log('isListening:', isListening);
+    const $listeningElement = $listeningElementRef?.current || document.body;
 
     if (isListening) {
       $listeningElement.addEventListener('click', onClick);

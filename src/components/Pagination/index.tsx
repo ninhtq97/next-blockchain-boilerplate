@@ -25,7 +25,7 @@ type Props = {
 
 const Pagination: React.FC<Props> = ({
   current,
-  currnetSize,
+  currnetSize = 6,
   total,
   onChange,
   withChangeSize = true,

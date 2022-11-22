@@ -43,14 +43,14 @@ const Popover: React.FC<Props> = ({
   const onOpen = () => setIsOpen(true);
   const onClose = () => setIsOpen(false);
 
-  useOutsideClick([$popoverRef, $linkRef], isOpen, onClose, $popoverRef);
+  useOutsideClick([$popoverRef, $linkRef], isOpen, onClose);
 
   useEffect(() => {
     if (!width && isOpen) {
       const rect = $linkRef.current?.getBoundingClientRect();
 
-      if (rect) {
-        $popoverRef.current!.style.minWidth = `${rect.width}px`;
+      if (rect && $popoverRef.current) {
+        $popoverRef.current.style.minWidth = `${rect.width}px`;
       }
     }
   }, [isOpen, width]);
@@ -63,8 +63,11 @@ const Popover: React.FC<Props> = ({
         $popoverRef,
         $linkRef,
       );
-      $popoverRef.current!.style.top = `${top}px`;
-      $popoverRef.current!.style.left = `${left}px`;
+
+      if ($popoverRef.current) {
+        $popoverRef.current.style.top = `${top}px`;
+        $popoverRef.current.style.left = `${left}px`;
+      }
     };
 
     if (isOpen) {
@@ -114,67 +117,70 @@ const calcPosition = (
   const margin = 10;
   const finalOffset = { ...offset };
 
-  const popoverRect = $popoverRef.current!.getBoundingClientRect();
-  const linkRect = $linkRef.current!.getBoundingClientRect();
+  if ($popoverRef.current && $linkRef.current) {
+    const popoverRect = $popoverRef.current.getBoundingClientRect();
+    const linkRect = $linkRef.current.getBoundingClientRect();
 
-  const linkCenterY = linkRect.top + linkRect.height / 2;
-  const linkCenterX = linkRect.left + linkRect.width / 2;
+    const linkCenterY = linkRect.top + linkRect.height / 2;
+    const linkCenterX = linkRect.left + linkRect.width / 2;
 
-  const placements = {
-    'top-start': {
-      top: linkRect.top - margin - popoverRect.height,
-      left: linkRect.left,
-    },
-    top: {
-      top: linkRect.top - margin - popoverRect.height,
-      left: linkCenterX - popoverRect.width / 2,
-    },
-    'top-end': {
-      top: linkRect.top - margin - popoverRect.height,
-      left: linkRect.left - popoverRect.width + linkRect.width,
-    },
-    'right-start': {
-      top: linkCenterY - margin,
-      left: linkRect.right + margin,
-    },
-    right: {
-      top: linkCenterY - popoverRect.height / 2,
-      left: linkRect.right + margin,
-    },
-    'right-end': {
-      top: linkCenterY - popoverRect.height + margin,
-      left: linkRect.right + margin,
-    },
-    'bottom-start': {
-      top: linkRect.bottom + margin,
-      left: linkRect.left,
-    },
-    bottom: {
-      top: linkRect.bottom + margin,
-      left: linkCenterX - popoverRect.width / 2,
-    },
-    'bottom-end': {
-      top: linkRect.bottom + margin,
-      left: linkRect.left - popoverRect.width + linkRect.width,
-    },
-    'left-start': {
-      top: linkCenterY - margin,
-      left: linkRect.left - popoverRect.width - margin,
-    },
-    left: {
-      top: linkCenterY - popoverRect.height / 2,
-      left: linkRect.left - margin - popoverRect.width,
-    },
-    'left-end': {
-      top: linkCenterY - popoverRect.height + margin,
-      left: linkRect.left - popoverRect.width - margin,
-    },
-  };
+    const placements = {
+      'top-start': {
+        top: linkRect.top - margin - popoverRect.height,
+        left: linkRect.left,
+      },
+      top: {
+        top: linkRect.top - margin - popoverRect.height,
+        left: linkCenterX - popoverRect.width / 2,
+      },
+      'top-end': {
+        top: linkRect.top - margin - popoverRect.height,
+        left: linkRect.left - popoverRect.width + linkRect.width,
+      },
+      'right-start': {
+        top: linkCenterY - margin,
+        left: linkRect.right + margin,
+      },
+      right: {
+        top: linkCenterY - popoverRect.height / 2,
+        left: linkRect.right + margin,
+      },
+      'right-end': {
+        top: linkCenterY - popoverRect.height + margin,
+        left: linkRect.right + margin,
+      },
+      'bottom-start': {
+        top: linkRect.bottom + margin,
+        left: linkRect.left,
+      },
+      bottom: {
+        top: linkRect.bottom + margin,
+        left: linkCenterX - popoverRect.width / 2,
+      },
+      'bottom-end': {
+        top: linkRect.bottom + margin,
+        left: linkRect.left - popoverRect.width + linkRect.width,
+      },
+      'left-start': {
+        top: linkCenterY - margin,
+        left: linkRect.left - popoverRect.width - margin,
+      },
+      left: {
+        top: linkCenterY - popoverRect.height / 2,
+        left: linkRect.left - margin - popoverRect.width,
+      },
+      'left-end': {
+        top: linkCenterY - popoverRect.height + margin,
+        left: linkRect.left - popoverRect.width - margin,
+      },
+    };
 
-  return {
-    top: placements[placement].top + (finalOffset.top ?? 0),
-    left: placements[placement].left + (finalOffset.left ?? 0),
-  };
+    return {
+      top: placements[placement].top + (finalOffset.top ?? 0),
+      left: placements[placement].left + (finalOffset.left ?? 0),
+    };
+  }
+  return { top: 0, left: 0 };
 };
 
 export default Popover;
