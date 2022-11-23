@@ -38,8 +38,8 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 - Wallet
   ```
   [-] Handle connect to wallet
-  [-] Handle event switch network
-  [-] Handle event change wallet
+  [x] Handle event switch network
+  [x] Handle event change wallet
   [-] Handle event disconnect wallet
   ```
 - Redux
@@ -71,8 +71,8 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
   ```
   [x] Hook app dispatch
   [x] Hook app selector
-  [-] Hook connect wallet
-  [-] Hook disconnect wallet
+  [x] Hook connect wallet
+  [x] Hook disconnect wallet
   [-] Hook connect wallet with token
   [-] Hook sign message
   [-] Hook sign in get token
