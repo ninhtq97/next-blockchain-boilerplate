@@ -370,13 +370,15 @@ module.exports = {
           alignItems: theme('position.center'),
           justifyContent: theme('position.center'),
           padding: `${theme('spacing.2')} ${theme('spacing.6')}`,
-          color: theme('colors.white'),
+          color: theme('colors.black'),
           fontWeight: theme('fontWeight.medium'),
           fontSize: theme('fontSize.base'),
           lineHeight: theme('lineHeight.6'),
           whiteSpace: 'nowrap',
           transition: '.5s',
           zIndex: 0,
+          border: `1px solid ${theme('colors.black')}`,
+          borderRadius: theme('borderRadius.md'),
 
           '&:disabled': {
             overflow: 'hidden',
@@ -396,8 +398,6 @@ module.exports = {
               background: theme('colors.gray.400'),
             },
           },
-
-          '&:not(:disabled)': {},
         },
       });
     }),

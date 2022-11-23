@@ -3,7 +3,68 @@
 @tailwind utilities;
 
 @layer base {
+  * {
+    outline: none;
+    user-select: none;
+  }
+
+  *::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+    background-color: #F5F5F5;
+    border-radius: 8px;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background: #aaa;
+    border-radius: 8px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: #eee;
+    border-radius: 8px;
+  }
+
+  *::-webkit-scrollbar-thumb:hover {
+    background: #999;
+  }
+
+  *::before,
+  *::after {
+    pointer-events: none;
+  }
+
   body {
+    overflow-x: hidden;
     min-height: 100vh;
+  }
+
+  svg {
+    fill: currentColor;
+  }
+
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input[type=number] {
+    -moz-appearance: textfield;
+  }
+
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  textarea:-webkit-autofill,
+  textarea:-webkit-autofill:hover,
+  textarea:-webkit-autofill:focus,
+  select:-webkit-autofill,
+  select:-webkit-autofill:hover,
+  select:-webkit-autofill:focus {
+    -webkit-text-fill-color: theme('colors.white');
+    -webkit-box-shadow: 0 0 0px 1000px transparent inset;
+    background-color: theme('backgroundColor.transparent') !important;
+    transition: background-color 5000s ease-in-out 0s;
   }
 }
