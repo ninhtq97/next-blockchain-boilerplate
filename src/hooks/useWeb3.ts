@@ -1,8 +1,9 @@
 import WalletConnectProvider from '@walletconnect/web3-provider';
-import { ContractContext, initWeb3, Web3Context } from 'contexts';
+import { initWeb3, Web3Context } from 'contexts';
 import { ethers } from 'ethers';
 import { useCallback, useContext } from 'react';
 import { TWeb3Client } from 'types';
+import { getErrorMessage } from 'utils';
 import Web3Modal, { IProviderOptions } from 'web3modal';
 
 const providerOptions: IProviderOptions = {
@@ -26,25 +27,29 @@ if (typeof window !== 'undefined') {
 }
 
 const useWeb3 = (): TWeb3Client => {
-  const { provider, web3Provider, setWeb3 } = useContext(Web3Context);
-  const { setContract } = useContext(ContractContext);
+  const { web3Provider, setWeb3 } = useContext(Web3Context);
 
   const connect = useCallback(async () => {
-    const instance = await web3Modal?.connect();
+    try {
+      const instance = await web3Modal?.connect();
 
-    if (instance) {
-      const provider = new ethers.providers.Web3Provider(instance);
-      const network = await provider.getNetwork();
-      const signer = provider.getSigner();
-      const address = (await signer.getAddress()).toLowerCase();
+      if (instance) {
+        const provider = new ethers.providers.Web3Provider(instance);
+        const network = await provider.getNetwork();
+        const signer = provider.getSigner();
+        const address = (await signer.getAddress()).toLowerCase();
 
-      setWeb3({
-        provider: instance,
-        web3Provider: provider,
-        signer,
-        address,
-        chainId: network.chainId,
-      });
+        setWeb3({
+          provider: instance,
+          web3Provider: provider,
+          signer,
+          address,
+          chainId: network.chainId,
+        });
+      }
+    } catch (error) {
+      const message = getErrorMessage(error);
+      console.warn('Connect error:', message);
     }
   }, [setWeb3]);
 

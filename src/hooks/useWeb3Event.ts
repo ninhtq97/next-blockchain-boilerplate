@@ -1,12 +1,24 @@
-import { Web3Context } from 'contexts';
-import { useContext, useEffect } from 'react';
+import { ContractContext, Web3Context } from 'contexts';
+import { useCallback, useContext, useEffect } from 'react';
+import useContract from './useContract';
 
 const useWeb3Event = () => {
   const { provider, address, chainId, setWeb3 } = useContext(Web3Context);
+  const { setContract } = useContext(ContractContext);
+
+  const { onInitContract } = useContract();
 
   useEffect(() => {
     // TODO: Refetch balance wallet
   }, [address, chainId]);
+
+  const initContract = useCallback(async () => {
+    return {};
+  }, []);
+
+  useEffect(() => {
+    initContract();
+  }, [initContract]);
 
   // Event change wallet on metamask
   useEffect(() => {
