@@ -1,4 +1,5 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import Web3Provider from 'components/Provider/Web3';
 import type { NextPage } from 'next';
 import type { AppProps } from 'next/app';
@@ -22,6 +23,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
       <Web3Provider>
         <Component {...pageProps} />
       </Web3Provider>
+      <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>,
   );
 }

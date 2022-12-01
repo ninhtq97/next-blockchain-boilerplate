@@ -39,9 +39,9 @@
     min-height: 100vh;
   }
 
-  svg {
+  /* svg {
     fill: currentColor;
-  }
+  } */
 
   input::-webkit-outer-spin-button,
   input::-webkit-inner-spin-button {
