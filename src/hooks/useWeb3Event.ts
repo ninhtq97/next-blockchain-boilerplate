@@ -1,19 +1,36 @@
-import { ContractContext, Web3Context } from 'contexts';
-import { useCallback, useContext, useEffect } from 'react';
+import { selectApp } from 'features/app/appSlice';
+import { selectContract } from 'features/contract/contractSlice';
+import { selectWeb3, setWeb3 } from 'features/web3/web3Slice';
+import { useCallback, useEffect } from 'react';
 import useContract from './useContract';
+import { useAppDispatch, useAppSelector } from './useToolkit';
 
 const useWeb3Event = () => {
-  const { provider, address, chainId, setWeb3 } = useContext(Web3Context);
-  const { setContract } = useContext(ContractContext);
+  const dispatch = useAppDispatch();
+  const app = useAppSelector(selectApp);
+  const { address, chainId, web3Provider, provider } =
+    useAppSelector(selectWeb3);
+  const {} = useAppSelector(selectContract);
 
   const { onInitContract } = useContract();
 
-  useEffect(() => {
-    // TODO: Refetch balance wallet
-  }, [address, chainId]);
+  const fetchBalance = useCallback(async () => {
+    console.log('Refetch balance');
+    // TODO: Call get balance from contract
+  }, []);
 
-  const initContract = useCallback(async () => {
-    return {};
+  useEffect(() => {
+    if (web3Provider && address) {
+      fetchBalance();
+    }
+  }, [fetchBalance, chainId, web3Provider, address]);
+
+  useEffect(() => {
+    app.refreshDOM === 2 && fetchBalance();
+  }, [fetchBalance, app.refreshDOM]);
+
+  const initContract = useCallback(() => {
+    // TODO: Init contract
   }, []);
 
   useEffect(() => {
@@ -24,7 +41,7 @@ const useWeb3Event = () => {
   useEffect(() => {
     if (provider) {
       const onAccountsChanged = async (accounts: string[]) => {
-        setWeb3((prev) => ({ ...prev, address: accounts[0].toLowerCase() }));
+        dispatch(setWeb3({ address: accounts[0].toLowerCase() }));
       };
 
       provider.on('accountsChanged', onAccountsChanged);
@@ -35,12 +52,12 @@ const useWeb3Event = () => {
         }
       };
     }
-  }, [provider, setWeb3]);
+  }, [dispatch, provider]);
 
   useEffect(() => {
     if (provider) {
       const onChainChanged = async (chainId: string) => {
-        setWeb3((prev) => ({ ...prev, chainId: +chainId }));
+        dispatch(setWeb3({ chainId: +chainId }));
       };
 
       provider.on('chainChanged', onChainChanged);
@@ -50,7 +67,7 @@ const useWeb3Event = () => {
         }
       };
     }
-  }, [provider, setWeb3]);
+  }, [dispatch, provider]);
 };
 
 export default useWeb3Event;

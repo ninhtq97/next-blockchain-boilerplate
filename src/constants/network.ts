@@ -1,5 +1,5 @@
 export const NETWORKS = {
-  BNB: {
+  BSC: {
     rpc: {
       56: 'https://bsc-dataseed.binance.org/',
     },
@@ -7,7 +7,7 @@ export const NETWORKS = {
     chainId: 56,
     bridge: 'https://bscscan.com',
   },
-  BNB_TESTNET: {
+  BSC_TESTNET: {
     rpc: {
       97: 'https://data-seed-prebsc-1-s1.binance.org:8545/',
     },

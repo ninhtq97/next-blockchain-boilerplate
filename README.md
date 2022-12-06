@@ -37,7 +37,8 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 - Wallet
   ```
-  [-] Handle connect to wallet
+  [x] Handle connect to wallet
+  [-] Handle refetch balance when change wallet or network
   [x] Handle event switch network
   [x] Handle event change wallet
   [-] Handle event disconnect wallet
@@ -79,7 +80,8 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
   [x] Hook declare contract
   [-] Hook balance wallet
   [-] Hook app global state
-  [-] Hook approve wallet
+  [x] Hook allowance contract
+  [x] Hook approve contract
   [x] Hook call api
   [x] Hook filter query api
   [x] Hook meta data response api

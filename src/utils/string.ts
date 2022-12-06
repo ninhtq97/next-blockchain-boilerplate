@@ -5,7 +5,7 @@ import {
   stripZeros,
   toUtf8Bytes,
   toUtf8String,
-  zeroPad
+  zeroPad,
 } from 'ethers/lib/utils';
 import { customAlphabet } from 'nanoid';
 
@@ -65,4 +65,8 @@ export const formatBigNumberToFixed = (
 ) => {
   const formattedString = formatUnits(number, decimals);
   return (+formattedString).toFixed(displayDecimals);
+};
+
+export const toFixedNumber = (num: number, decimals = 2) => {
+  return parseFloat(num.toFixed(decimals));
 };

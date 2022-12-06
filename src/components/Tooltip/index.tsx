@@ -96,51 +96,55 @@ const calcPosition = (
   const margin = 10;
   const finalOffset = { ...offset };
 
-  const tooltipRect = $tooltipRef.current!.getBoundingClientRect();
-  const linkRect = $linkRef.current!.getBoundingClientRect();
+  if ($tooltipRef.current && $linkRef.current) {
+    const tooltipRect = $tooltipRef.current.getBoundingClientRect();
+    const linkRect = $linkRef.current.getBoundingClientRect();
 
-  const linkCenterY = linkRect.top + linkRect.height / 2;
-  const linkCenterX = linkRect.left + linkRect.width / 2;
+    const linkCenterY = linkRect.top + linkRect.height / 2;
+    const linkCenterX = linkRect.left + linkRect.width / 2;
 
-  const placements = {
-    'top-start': {
-      top: linkRect.top - margin - tooltipRect.height,
-      left: linkRect.left,
-    },
-    top: {
-      top: linkRect.top - margin - tooltipRect.height,
-      left: linkCenterX - tooltipRect.width / 2,
-    },
-    'top-end': {
-      top: linkRect.top - margin - tooltipRect.height,
-      left: linkRect.left - tooltipRect.width + linkRect.width,
-    },
-    right: {
-      top: linkCenterY - tooltipRect.height / 2,
-      left: linkRect.right + margin,
-    },
-    'bottom-start': {
-      top: linkRect.bottom + margin,
-      left: linkRect.left,
-    },
-    bottom: {
-      top: linkRect.bottom + margin,
-      left: linkCenterX - tooltipRect.width / 2,
-    },
-    'bottom-end': {
-      top: linkRect.bottom + margin,
-      left: linkRect.left - tooltipRect.width + linkRect.width,
-    },
-    left: {
-      top: linkCenterY - tooltipRect.height / 2,
-      left: linkRect.left - margin - tooltipRect.width,
-    },
-  };
+    const placements = {
+      'top-start': {
+        top: linkRect.top - margin - tooltipRect.height,
+        left: linkRect.left,
+      },
+      top: {
+        top: linkRect.top - margin - tooltipRect.height,
+        left: linkCenterX - tooltipRect.width / 2,
+      },
+      'top-end': {
+        top: linkRect.top - margin - tooltipRect.height,
+        left: linkRect.left - tooltipRect.width + linkRect.width,
+      },
+      right: {
+        top: linkCenterY - tooltipRect.height / 2,
+        left: linkRect.right + margin,
+      },
+      'bottom-start': {
+        top: linkRect.bottom + margin,
+        left: linkRect.left,
+      },
+      bottom: {
+        top: linkRect.bottom + margin,
+        left: linkCenterX - tooltipRect.width / 2,
+      },
+      'bottom-end': {
+        top: linkRect.bottom + margin,
+        left: linkRect.left - tooltipRect.width + linkRect.width,
+      },
+      left: {
+        top: linkCenterY - tooltipRect.height / 2,
+        left: linkRect.left - margin - tooltipRect.width,
+      },
+    };
 
-  return {
-    top: placements[placement].top + (finalOffset.top ?? 0),
-    left: placements[placement].left + (finalOffset.left ?? 0),
-  };
+    return {
+      top: placements[placement].top + (finalOffset.top ?? 0),
+      left: placements[placement].left + (finalOffset.left ?? 0),
+    };
+  }
+
+  return { top: 0, left: 0 };
 };
 
 export default Tooltip;

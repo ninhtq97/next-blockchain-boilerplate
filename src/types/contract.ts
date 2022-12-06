@@ -1,1 +1,3 @@
-export type TContract = {};
+export type TContract = {
+  status: 'idle' | 'loading' | 'failed';
+};

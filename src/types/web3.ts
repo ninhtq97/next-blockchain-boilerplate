@@ -7,8 +7,9 @@ export type TWeb3Provider = {
   rpcProvider?: ethers.providers.Provider;
   signer?: ethers.providers.JsonRpcSigner;
   address?: string;
-  balance?: Partial<Record<keyof Coins, BigNumber>>;
+  balance: Partial<Record<keyof Coins, BigNumber>>;
   chainId?: number;
+  status: 'idle' | 'loading' | 'failed';
 };
 
 export type TWeb3Client = {

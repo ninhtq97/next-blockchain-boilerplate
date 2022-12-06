@@ -1,8 +1,9 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import Web3Provider from 'components/Provider/Web3';
 import type { NextPage } from 'next';
 import type { AppProps } from 'next/app';
+import { Provider } from 'react-redux';
+import { store } from 'store';
 import '../styles/globals.css';
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
@@ -18,13 +19,13 @@ const queryClient = new QueryClient({});
 function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? ((page) => page);
 
-  return getLayout(
-    <QueryClientProvider client={queryClient}>
-      <Web3Provider>
-        <Component {...pageProps} />
-      </Web3Provider>
-      <ReactQueryDevtools initialIsOpen={false} />
-    </QueryClientProvider>,
+  return (
+    <Provider store={store}>
+      <QueryClientProvider client={queryClient}>
+        {getLayout(<Component {...pageProps} />)}
+        <ReactQueryDevtools initialIsOpen={false} />
+      </QueryClientProvider>
+    </Provider>
   );
 }
 

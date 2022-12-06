@@ -38,8 +38,8 @@ const Modal: React.FC<Props> = ({
   const isControlled = typeof propsIsOpen === 'boolean';
   const isOpen = isControlled ? propsIsOpen : stateIsOpen;
 
-  const $modalRef = useRef<any>();
-  const $clickableOverlayRef = useRef<any>();
+  const $modalRef = useRef<HTMLDivElement>(null);
+  const $clickableOverlayRef = useRef<HTMLDivElement>(null);
 
   const onOpen = useCallback(() => setStateOpen(true), []);
 
@@ -62,7 +62,7 @@ const Modal: React.FC<Props> = ({
 
       {isOpen &&
         createPortal(
-          <div className={`modal ${className || ''}`}>
+          <div className={`modal${className ? ` ${className}` : ''}`}>
             <div
               className="modal__overlay"
               ref={$clickableOverlayRef}

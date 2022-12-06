@@ -1,64 +1,69 @@
 import WalletConnectProvider from '@walletconnect/web3-provider';
-import { initWeb3, Web3Context } from 'contexts';
 import { ethers } from 'ethers';
-import { useCallback, useContext } from 'react';
+import { resetWeb3, setWeb3 } from 'features/web3/web3Slice';
+import { useCallback } from 'react';
 import { TWeb3Client } from 'types';
 import { getErrorMessage } from 'utils';
 import Web3Modal, { IProviderOptions } from 'web3modal';
-
-const providerOptions: IProviderOptions = {
-  walletconnect: {
-    package: WalletConnectProvider,
-    options: {
-      rpc: {
-        56: 'https://data-seed-prebsc-1-s1.binance.org:8545/',
-      },
-      network: 'binance',
-      chainId: 97,
-      bridge: 'https://pancakeswap.bridge.walletconnect.org',
-    },
-  },
-};
+import { useAppDispatch } from './useToolkit';
 
 let web3Modal: Web3Modal | null;
 
 if (typeof window !== 'undefined') {
+  const providerOptions: IProviderOptions = {
+    walletconnect: {
+      package: WalletConnectProvider,
+      options: {
+        rpc: {
+          56: 'https://data-seed-prebsc-1-s1.binance.org:8545/',
+        },
+        network: 'binance',
+        chainId: 97,
+        bridge: 'https://pancakeswap.bridge.walletconnect.org',
+      },
+    },
+  };
+
   web3Modal = new Web3Modal({ cacheProvider: true, providerOptions });
 }
 
 const useWeb3 = (): TWeb3Client => {
-  const { web3Provider, setWeb3 } = useContext(Web3Context);
+  const dispatch = useAppDispatch();
 
   const connect = useCallback(async () => {
     try {
-      const instance = await web3Modal?.connect();
+      if (web3Modal) {
+        const instance = await web3Modal.connect();
 
-      if (instance) {
-        const provider = new ethers.providers.Web3Provider(instance);
-        const network = await provider.getNetwork();
-        const signer = provider.getSigner();
-        const address = (await signer.getAddress()).toLowerCase();
+        if (instance) {
+          const provider = new ethers.providers.Web3Provider(instance);
+          const network = await provider.getNetwork();
+          const signer = provider.getSigner();
+          const address = (await signer.getAddress()).toLowerCase();
 
-        setWeb3({
-          provider: instance,
-          web3Provider: provider,
-          signer,
-          address,
-          chainId: network.chainId,
-        });
+          dispatch(
+            setWeb3({
+              provider: instance,
+              web3Provider: provider,
+              signer,
+              address,
+              chainId: network.chainId,
+            }),
+          );
+        }
       }
     } catch (error) {
       const message = getErrorMessage(error);
       console.warn('Connect error:', message);
     }
-  }, [setWeb3]);
+  }, [dispatch]);
 
   const disconnect = useCallback(async () => {
-    if (web3Provider) {
-      web3Modal?.clearCachedProvider();
-      setWeb3(initWeb3);
+    if (web3Modal) {
+      web3Modal.clearCachedProvider();
+      dispatch(resetWeb3());
     }
-  }, [setWeb3, web3Provider]);
+  }, [dispatch]);
 
   return { connect, disconnect };
 };

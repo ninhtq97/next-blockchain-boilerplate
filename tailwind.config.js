@@ -3,9 +3,10 @@ const plugin = require('tailwindcss/plugin');
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    './pages/**/*.{js,ts,jsx,tsx}',
-    '**/components/**/*.{js,ts,jsx,tsx}',
-    '**/layouts/**/*.{js,ts,jsx,tsx}',
+    '**/*.{jsx,tsx}',
+    // './pages/**/*.{js,ts,jsx,tsx}',
+    // '**/components/**/*.{js,ts,jsx,tsx}',
+    // '**/layouts/**/*.{js,ts,jsx,tsx}',
     './node_modules/react-tailwindcss-datepicker/dist/index.esm.js',
   ],
   theme: {
@@ -231,7 +232,7 @@ module.exports = {
           userSelect: 'none',
           cursor: theme('cursor.pointer'),
 
-          '&__value-container': {
+          '&__container': {
             display: theme('display.flex'),
             alignItems: theme('position.center'),
             justifyContent: theme('position.center'),
@@ -263,7 +264,7 @@ module.exports = {
               fontSize: theme('fontSize.base'),
               lineHeight: theme('lineHeight.6'),
               padding: `${theme('spacing.1')} ${theme('spacing.2')}`,
-              borderRadius: theme('borderRadius'),
+              borderRadius: theme('borderRadius.DEFAULT'),
               cursor: theme('cursor.pointer'),
               transition: '.5s',
               backgroundColor: theme('colors.white'),

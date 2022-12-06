@@ -1,10 +1,16 @@
 import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit';
-import counterReducer from 'features/counter/counterSlice';
+import appReducer from 'features/app/appSlice';
+import contractReducer from 'features/contract/contractSlice';
+import web3Reducer from 'features/web3/web3Slice';
 
 export const store = configureStore({
   reducer: {
-    counter: counterReducer,
+    app: appReducer,
+    web3: web3Reducer,
+    contract: contractReducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({ serializableCheck: false }),
 });
 
 export type AppDispatch = typeof store.dispatch;
