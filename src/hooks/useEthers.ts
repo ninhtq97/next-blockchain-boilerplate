@@ -1,3 +1,4 @@
+import { getSignMsg } from 'api';
 import { ethers } from 'ethers';
 import { selectWeb3 } from 'features/web3/web3Slice';
 import { getStoredAuthToken } from 'utils';
@@ -13,24 +14,17 @@ const useEthers = () => {
   ) => {
     const authToken = getStoredAuthToken(address);
     if (!authToken) {
-      // TODO: Fetch message
-      // const message = await fetchSignMessage(address);
-      // let signature = '';
-      // TODO: Check wallet connect
-      // if (instance.wc) {
-      //   signature = await provider.send('personal_sign', [
-      //     ethers.utils.hexlify(ethers.utils.toUtf8Bytes(message)),
-      //     address.toLowerCase(),
-      //   ]);
-      // } else {
-      //   signature = await signer.signMessage(message);
-      // }
-      // TODO: Call get token
-      // const token = await signIn({ wallet: address, signature });
-      // if (token.success) {
-      // TODO: Save token to storage
-      // storeAuthToken(address, token.data);
-      // }
+      const message = await getSignMsg(address);
+      let signature = '';
+      if (instance.wc) {
+        signature = await provider.send('personal_sign', [
+          ethers.utils.hexlify(ethers.utils.toUtf8Bytes(message)),
+          address.toLowerCase(),
+        ]);
+      } else {
+        signature = await signer.signMessage(message);
+      }
+      return signature;
     }
   };
 

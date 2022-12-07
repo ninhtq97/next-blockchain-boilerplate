@@ -10,7 +10,7 @@ import { useAppSelector } from './useToolkit';
 export type TxResponse = TransactionResponse | null;
 
 export type CatchTxErrorReturn = {
-  fetchWithCatchTxError: (
+  onFetchWithCatchTxError: (
     fn: () => Promise<TxResponse>,
   ) => Promise<TransactionReceipt | null>;
   loading: boolean;
@@ -47,7 +47,7 @@ export default function useCatchTxError(): CatchTxErrorReturn {
     }
   }, []);
 
-  const fetchWithCatchTxError = useCallback(
+  const onFetchWithCatchTxError = useCallback(
     async (
       callTx: () => Promise<TxResponse>,
     ): Promise<TransactionReceipt | null> => {
@@ -63,7 +63,7 @@ export default function useCatchTxError(): CatchTxErrorReturn {
         const receipt = await tx!.wait();
 
         return receipt;
-      } catch (error: any) {
+      } catch (error) {
         if (!isUserRejected(error)) {
           if (!tx) {
             handleNormalError(error);
@@ -74,7 +74,7 @@ export default function useCatchTxError(): CatchTxErrorReturn {
                 .then(() => {
                   handleNormalError(error, tx);
                 })
-                .catch((err: any) => {
+                .catch((err) => {
                   if (isGasEstimationError(err)) {
                     handleNormalError(error, tx);
                   } else {
@@ -91,11 +91,14 @@ export default function useCatchTxError(): CatchTxErrorReturn {
                           recursiveErr.data?.originalError;
                       }
                     }
+
                     const REVERT_STR = 'execution reverted: ';
                     const indexInfo = reason?.indexOf(REVERT_STR) || -1;
                     const isRevertedError = indexInfo >= 0;
+
                     if (isRevertedError)
                       reason = reason?.substring(indexInfo + REVERT_STR.length);
+
                     Toast.error(
                       isRevertedError
                         ? `Transaction failed with error: ${reason}`
@@ -116,7 +119,7 @@ export default function useCatchTxError(): CatchTxErrorReturn {
   );
 
   return {
-    fetchWithCatchTxError,
+    onFetchWithCatchTxError,
     loading,
   };
 }

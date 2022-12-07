@@ -1,4 +1,5 @@
 export * from './app';
+export * from './auth';
 export * from './contract';
 export * from './web3';
 

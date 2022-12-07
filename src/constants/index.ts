@@ -1,8 +1,3 @@
-export enum Games {
-  BNZ = 'bnz',
-  IZZY = 'izzy',
-}
-
 export const PAGE = { NUMBER: 1, SIZE: 10 };
 
 export const BATCH_SIZE = 100;

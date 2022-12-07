@@ -8,8 +8,7 @@ import { useAppDispatch, useAppSelector } from './useToolkit';
 const useWeb3Event = () => {
   const dispatch = useAppDispatch();
   const app = useAppSelector(selectApp);
-  const { address, chainId, web3Provider, provider } =
-    useAppSelector(selectWeb3);
+  const { address, chainId, provider } = useAppSelector(selectWeb3);
   const {} = useAppSelector(selectContract);
 
   const { onInitContract } = useContract();
@@ -20,14 +19,14 @@ const useWeb3Event = () => {
   }, []);
 
   useEffect(() => {
-    if (web3Provider && address) {
+    if (address) {
       fetchBalance();
     }
-  }, [fetchBalance, chainId, web3Provider, address]);
+  }, [fetchBalance, chainId, address]);
 
   useEffect(() => {
-    app.refreshDOM === 2 && fetchBalance();
-  }, [fetchBalance, app.refreshDOM]);
+    app.refreshDOM === 2 && app.status === 'loading' && fetchBalance();
+  }, [fetchBalance, app.refreshDOM, app.status]);
 
   const initContract = useCallback(() => {
     // TODO: Init contract

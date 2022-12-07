@@ -51,8 +51,9 @@ const Home: NextPageWithLayout = () => {
         />
       </div>
 
-      <Button onClick={connect}>Connect Wallet</Button>
-      <Button onClick={disconnect}>Disconnect Wallet</Button>
+      <Button onClick={address ? disconnect : connect}>
+        {address ? 'Disconnect' : 'Connect'} Wallet
+      </Button>
 
       <div>{address}</div>
       <div>{chainId}</div>

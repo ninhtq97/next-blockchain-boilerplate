@@ -75,14 +75,14 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
   [x] Hook connect wallet
   [x] Hook disconnect wallet
   [-] Hook connect wallet with token
-  [-] Hook sign message
+  [x] Hook sign message
   [-] Hook sign in get token
   [x] Hook declare contract
-  [-] Hook balance wallet
+  [x] Hook balance wallet
   [-] Hook app global state
   [x] Hook allowance contract
   [x] Hook approve contract
-  [x] Hook call api
+  [-] Hook call api
   [x] Hook filter query api
   [x] Hook meta data response api
   [x] Hook outside click

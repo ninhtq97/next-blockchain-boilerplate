@@ -3,6 +3,7 @@ export * from './array';
 export * from './bigNumber';
 export * from './date';
 export * from './error';
+export * from './random';
 export * from './sentry';
 export * from './storage';
 export * from './string';

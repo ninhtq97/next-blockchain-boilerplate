@@ -1,7 +1,13 @@
-export { default as useAuth } from './useAuth';
-export { default as useCatchTxError } from './useCatchTxError';
+export { default as useApi } from './useApi';
+export { default as useContract } from './useContract';
+export { default as useDebounce } from './useDebounce';
+export { default as useERC20 } from './useERC20';
+export { default as useEthers } from './useEthers';
 export { default as useFilter } from './useFilter';
 export { default as useMeta } from './useMeta';
 export { default as useNetwork } from './useNetwork';
+export { default as useOutsideClick } from './useOutsideClick';
 export * from './useToolkit';
-export { default as useActiveWeb3 } from './useWeb3';
+export { default as useCatchTxError } from './useTx';
+export { default as useWeb3 } from './useWeb3';
+export { default as useWeb3Event } from './useWeb3Event';

@@ -21,7 +21,13 @@ const useERC20 = () => {
     return approve;
   };
 
-  return { onAllowance, onApprove };
+  const getBalance = async (contract: Contract, address: string) => {
+    const balance = await contract.balanceOf(address);
+    console.log('Balance:', balance.toString());
+    return balance;
+  };
+
+  return { onAllowance, onApprove, getBalance };
 };
 
 export default useERC20;
