@@ -7,15 +7,11 @@ const useApi = () => {
 
   const onCallWithCatchError = useCallback(
     async (
-      callTx: () => Promise<AxiosResponse>,
+      callFn: () => Promise<AxiosResponse>,
     ): Promise<AxiosResponse | null> => {
-      let res: AxiosResponse | null = null;
-
       try {
         setLoading(true);
-        res = await callTx();
-
-        return res;
+        return await callFn();
       } catch (error) {
         console.log('Catch error:', error);
         const message = getErrorMessage(error);

@@ -10,7 +10,7 @@ const initialState: TApp = {
 
 export const refreshDOM = createAsyncThunk(
   'app/refreshDOM',
-  (num?: number) => num ?? true,
+  (num?: number) => num ?? toFixedNumber(Math.random()),
 );
 
 export const appSlice = createSlice({
@@ -29,10 +29,7 @@ export const appSlice = createSlice({
       })
       .addCase(refreshDOM.fulfilled, (state, action) => {
         state.status = 'idle';
-        state.refreshDOM =
-          typeof action.payload === 'number'
-            ? action.payload
-            : toFixedNumber(Math.random());
+        state.refreshDOM = action.payload;
       })
       .addCase(refreshDOM.rejected, (state) => {
         state.status = 'failed';

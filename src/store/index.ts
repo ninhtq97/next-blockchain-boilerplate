@@ -1,6 +1,7 @@
 import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit';
 import appReducer from 'features/app/appSlice';
 import contractReducer from 'features/contract/contractSlice';
+import txReducer from 'features/tx/txSlice';
 import web3Reducer from 'features/web3/web3Slice';
 
 export const store = configureStore({
@@ -8,6 +9,7 @@ export const store = configureStore({
     app: appReducer,
     web3: web3Reducer,
     contract: contractReducer,
+    tx: txReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({ serializableCheck: false }),

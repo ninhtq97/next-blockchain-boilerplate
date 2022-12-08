@@ -26,6 +26,8 @@ module.exports = {
           DEFAULT: '1rem',
         },
       },
+      fontFamily: {},
+      fontSize: {},
       display: {
         none: 'none',
         block: 'block',
@@ -40,6 +42,12 @@ module.exports = {
         right: 'right',
         center: 'center',
       },
+      backgroundImage: {},
+      backgroundSize: {
+        full: '100%',
+      },
+      keyframes: {},
+      animation: {},
     },
   },
   plugins: [
@@ -400,6 +408,10 @@ module.exports = {
               background: theme('colors.gray.400'),
             },
           },
+        },
+
+        '.app': {
+          minHeight: theme('height.screen'),
         },
       });
     }),

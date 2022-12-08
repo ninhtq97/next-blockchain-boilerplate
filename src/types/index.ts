@@ -1,6 +1,7 @@
 export * from './app';
 export * from './auth';
 export * from './contract';
+export * from './tx';
 export * from './web3';
 
 export type TStatus = 'FAIL' | 'IDLE' | 'PROCESSING' | 'SUCCESS';

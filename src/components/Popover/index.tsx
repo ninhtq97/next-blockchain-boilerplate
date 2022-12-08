@@ -56,7 +56,7 @@ const Popover: React.FC<Props> = ({
   }, [isOpen, width]);
 
   useEffect(() => {
-    const setPopoverPosition = () => {
+    const setPosition = () => {
       const { top, left } = calcPosition(
         offset,
         placement,
@@ -71,14 +71,14 @@ const Popover: React.FC<Props> = ({
     };
 
     if (isOpen) {
-      setPopoverPosition();
-      window.addEventListener('resize', setPopoverPosition);
-      window.addEventListener('scroll', setPopoverPosition);
+      setPosition();
+      window.addEventListener('resize', setPosition);
+      window.addEventListener('scroll', setPosition);
     }
 
     return () => {
-      window.removeEventListener('resize', setPopoverPosition);
-      window.removeEventListener('scroll', setPopoverPosition);
+      window.removeEventListener('resize', setPosition);
+      window.removeEventListener('scroll', setPosition);
     };
   }, [isOpen, offset, placement]);
 

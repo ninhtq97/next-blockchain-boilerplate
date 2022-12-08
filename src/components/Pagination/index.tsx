@@ -60,7 +60,7 @@ const Pagination: React.FC<Props> = ({
           <p className="size__label text-blue-700 text-sm">{sizeLable}</p>
           <Select
             isFilterSearch={false}
-            className="text-xs !px-[6px] !py-0.5"
+            className="text-xs min-h-[1.8rem] !px-1 !py-0.5"
             value={currnetSize}
             onChange={(selected) =>
               onChangeSize(Array.isArray(selected) ? +selected[0] : +selected)
@@ -76,7 +76,7 @@ const Pagination: React.FC<Props> = ({
       >
         {current > 1 && (
           <Item current={current} number={1} onClick={() => goToPage(1)}>
-            <Icon icon={<></>} />
+            <Icon icon={<>Prev</>} />
           </Item>
         )}
         {nums.map((number) => (
@@ -94,7 +94,7 @@ const Pagination: React.FC<Props> = ({
             number={total}
             onClick={() => goToPage(total)}
           >
-            <Icon icon={<></>} />
+            <Icon icon={<>Next</>} />
           </Item>
         )}
       </div>

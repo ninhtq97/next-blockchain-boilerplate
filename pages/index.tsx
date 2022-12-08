@@ -3,6 +3,12 @@ import Modal from 'components/Modal';
 import Pagination from 'components/Pagination';
 import Select from 'components/Select';
 import { refreshDOM } from 'features/app/appSlice';
+import {
+  addTxIfNotDuplicate,
+  removeTx,
+  removeTxIfExist,
+  selectTx,
+} from 'features/tx/txSlice';
 import { selectWeb3 } from 'features/web3/web3Slice';
 import { useAppDispatch, useAppSelector } from 'hooks';
 import useWeb3 from 'hooks/useWeb3';
@@ -10,8 +16,9 @@ import useWeb3Event from 'hooks/useWeb3Event';
 import { Layout } from 'layouts';
 import NestedLayout from 'layouts/NestedLayout';
 import Head from 'next/head';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Datepicker from 'react-tailwindcss-datepicker';
+import { delay } from 'utils';
 import type { NextPageWithLayout } from './_app';
 
 const Home: NextPageWithLayout = () => {
@@ -20,6 +27,7 @@ const Home: NextPageWithLayout = () => {
   const dispatch = useAppDispatch();
 
   const { address, chainId } = useAppSelector(selectWeb3);
+  const tx = useAppSelector(selectTx);
 
   const [value, setValue] = useState({
     startDate: new Date(),
@@ -31,6 +39,10 @@ const Home: NextPageWithLayout = () => {
     setValue(newValue);
   };
 
+  useEffect(() => {
+    console.log('tx:', tx);
+  }, [tx]);
+
   return (
     <div className="">
       <Head>
@@ -39,8 +51,58 @@ const Home: NextPageWithLayout = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
+      <div className="flex flex-col gap-4 absolute top-2 right-2">
+        {tx.pending.length > 0 && (
+          <div className="bg-black bg-opacity-40">
+            <p>Tx Pending</p>
+            <a href={`https://bscscan.com/tx/0xfff`}>{tx.pending[0]}</a>
+          </div>
+        )}
+
+        {tx.complete.length > 0 && (
+          <div className="bg-black bg-opacity-40">
+            <p>Tx Completed</p>
+            <a href={`https://bscscan.com/tx/0xfff`}>{tx.complete[0]}</a>
+          </div>
+        )}
+      </div>
+
       <Button onClick={() => dispatch(refreshDOM())}>Refresh DOM</Button>
       <Button onClick={() => dispatch(refreshDOM(2))}>Refresh Balance</Button>
+
+      <Button
+        onClick={async () => {
+          const tx = `0x${Math.random()}`;
+          dispatch(addTxIfNotDuplicate({ type: 'pending', tx }));
+
+          await delay(2000);
+          dispatch(removeTxIfExist({ type: 'pending', tx }));
+          dispatch(addTxIfNotDuplicate({ type: 'complete', tx }));
+        }}
+      >
+        Add Tx Pending
+      </Button>
+      <Button
+        onClick={() =>
+          dispatch(removeTxIfExist({ type: 'pending', tx: '0x01' }))
+        }
+      >
+        Remove Tx Pending
+      </Button>
+
+      <Button
+        onClick={() => {
+          const tx = `0x${Math.random()}`;
+          dispatch(addTxIfNotDuplicate({ type: 'complete', tx }));
+        }}
+      >
+        Add Tx Complete
+      </Button>
+      <Button
+        onClick={() => dispatch(removeTx({ type: 'complete', tx: '0x01' }))}
+      >
+        Remove Tx Complete
+      </Button>
 
       <div className="border">
         <Datepicker

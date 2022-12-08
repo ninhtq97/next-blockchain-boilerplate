@@ -37,7 +37,7 @@ const Tooltip: React.FC<Props> = ({
   const onLeave = () => setIsOpen(false);
 
   useEffect(() => {
-    const setTooltipPosition = () => {
+    const setPosition = () => {
       const { top, left } = calcPosition(
         offset,
         placement,
@@ -49,14 +49,14 @@ const Tooltip: React.FC<Props> = ({
     };
 
     if (isOpen) {
-      setTooltipPosition();
-      window.addEventListener('resize', setTooltipPosition);
-      window.addEventListener('scroll', setTooltipPosition);
+      setPosition();
+      window.addEventListener('resize', setPosition);
+      window.addEventListener('scroll', setPosition);
     }
 
     return () => {
-      window.removeEventListener('resize', setTooltipPosition);
-      window.removeEventListener('scroll', setTooltipPosition);
+      window.removeEventListener('resize', setPosition);
+      window.removeEventListener('scroll', setPosition);
     };
   }, [isOpen, offset, placement]);
 

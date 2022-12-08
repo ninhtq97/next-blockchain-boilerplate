@@ -20,6 +20,7 @@ type Props = {
   label?: string;
   value?: string | number;
   options: Option[];
+  isLoading?: boolean;
   placeholder?: string;
   error?: boolean;
   helperText?: string;
@@ -31,6 +32,7 @@ const Select = forwardRef<HTMLDivElement, Props>(function Render(
     className,
     isMultiple,
     isDisable,
+    isLoading = false,
     isFilterSearch = true,
     label,
     value,
@@ -44,7 +46,6 @@ const Select = forwardRef<HTMLDivElement, Props>(function Render(
 ) {
   const [selected, setSelected] = useState<Option[]>([]);
   const [searchValue, setSearchValue] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
 
   const debounceValue = useDebounce(searchValue, 300);
 
@@ -89,7 +90,7 @@ const Select = forwardRef<HTMLDivElement, Props>(function Render(
       ref={$ref}
     >
       <Popover
-        className="select !p-2 border rounded-lg"
+        className="!p-2 border rounded-lg"
         placement="bottom-start"
         renderLink={({ onClick, ref }) => (
           <>
@@ -156,11 +157,15 @@ const Select = forwardRef<HTMLDivElement, Props>(function Render(
             )}
           </>
         )}
-        renderContent={() => (
+        renderContent={({ onClose }) => (
           <Dropdown
             value={selected}
             options={options}
             onChange={selectOption}
+            deactivateDropdown={() => {
+              onClose();
+              setSearchValue('');
+            }}
             isLoading={isLoading}
             isFilterSearch={isFilterSearch}
             searchValue={debounceValue}

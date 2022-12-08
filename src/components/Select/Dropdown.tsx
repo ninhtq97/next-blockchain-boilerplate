@@ -6,6 +6,7 @@ type Props = {
   value: Option[];
   options: Option[];
   onChange: (selected: Option) => void;
+  deactivateDropdown: () => void;
   isLoading: boolean;
   isFilterSearch: boolean;
   searchValue: string;
@@ -16,6 +17,7 @@ const Dropdown: React.FC<Props> = ({
   value,
   options,
   onChange,
+  deactivateDropdown,
   isLoading,
   isFilterSearch,
   searchValue,
@@ -25,6 +27,7 @@ const Dropdown: React.FC<Props> = ({
 
   const selectOptionValue = (optionValue) => {
     onChange(optionValue);
+    deactivateDropdown();
   };
 
   const removeSelectedOptions = (options: Option[]) => {
@@ -63,14 +66,7 @@ const Dropdown: React.FC<Props> = ({
 
       <div className="options">
         {isLoading ? (
-          <>
-            <div className="flex items-center justify-center">
-              Không tìm thấy dữ liệu
-            </div>
-            <div className="flex items-center justify-center absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full z-50 bg-[rgba(255_255_255_/_10%)] rounded">
-              Loading...
-            </div>
-          </>
+          <div className="flex items-center justify-center">Loading...</div>
         ) : filteredOptions.length ? (
           filteredOptions.map((option) => (
             <div
