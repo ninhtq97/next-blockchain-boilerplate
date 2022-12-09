@@ -97,7 +97,7 @@ const Select = forwardRef<HTMLDivElement, Props>(function Render(
             {label && <div className="select__label">{label}</div>}
 
             <div
-              className={`select__container ${
+              className={`select-container ${
                 error ? 'text-rose-500' : 'text-gray-500'
               }${className ? ` ${className}` : ''}`}
               onClick={onClick}
@@ -116,7 +116,7 @@ const Select = forwardRef<HTMLDivElement, Props>(function Render(
                     >
                       <div className="flex items-center gap-2">
                         {s.icon}
-                        <span className="select__value">{s.label}</span>
+                        <span className="select-value">{s.label}</span>
                       </div>
 
                       {isMultiple && (
@@ -129,7 +129,7 @@ const Select = forwardRef<HTMLDivElement, Props>(function Render(
                     </div>
                   ))
                 ) : (
-                  <span className="select__placeholder">{placeholder}</span>
+                  <span className="select-placeholder">{placeholder}</span>
                 )}
               </div>
               <Icon

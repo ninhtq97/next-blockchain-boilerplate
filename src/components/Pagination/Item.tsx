@@ -7,15 +7,13 @@ type Props = {
 const Item: React.FC<Props> = ({ current, number, onClick, children }) => {
   return (
     <div
-      className={`pagination__item ${
-        current && number && current === number
-          ? 'pagination__item--active'
-          : ''
+      className={`pagination-item ${
+        current && number && current === number ? 'pagination-item--active' : ''
       }`}
       onClick={onClick}
     >
-      <div className="pagination__inner">
-        <p className="pagination__content">{children ?? number}</p>
+      <div className="pagination-item__inner">
+        <p className="pagination-item__content">{children ?? number}</p>
       </div>
     </div>
   );

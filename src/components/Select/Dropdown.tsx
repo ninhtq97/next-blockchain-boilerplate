@@ -50,7 +50,7 @@ const Dropdown: React.FC<Props> = ({
   );
 
   return (
-    <div className="select__dropdown">
+    <div className="select-dropdown">
       {isFilterSearch && (
         <Input
           className="border border-gray-300"
@@ -76,7 +76,7 @@ const Dropdown: React.FC<Props> = ({
             >
               <div className="flex items-center gap-2">
                 {option.icon}
-                <span className="option__value">{option.label}</span>
+                <span className="option-value">{option.label}</span>
               </div>
               {option.suffix && (
                 <span className="text-xs text-divider">{option.suffix}</span>

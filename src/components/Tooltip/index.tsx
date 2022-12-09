@@ -1,3 +1,4 @@
+import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { Position } from 'types';
@@ -71,18 +72,26 @@ const Tooltip: React.FC<Props> = ({
         {renderLink?.({ onEnter, onLeave })}
       </div>
 
-      {isOpen &&
-        createPortal(
-          <div
-            className={`fixed p-2 bg-gray-600 text-white rounded z-50 shadow-md animate-fade-in${
-              className ? ` ${className}` : ''
-            }`}
-            ref={$tooltipRef}
-          >
-            {renderContent?.({ onEnter, onLeave })}
-          </div>,
-          document.querySelector('body')!,
+      <AnimatePresence>
+        {isOpen && (
+          <>
+            {createPortal(
+              <motion.div
+                className={`fixed p-2 bg-gray-600 text-white rounded z-50 shadow-md${
+                  className ? ` ${className}` : ''
+                }`}
+                ref={$tooltipRef}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+              >
+                {renderContent?.({ onEnter, onLeave })}
+              </motion.div>,
+              document.querySelector('body')!,
+            )}
+          </>
         )}
+      </AnimatePresence>
     </>
   );
 };

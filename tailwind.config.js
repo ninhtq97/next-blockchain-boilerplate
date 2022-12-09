@@ -79,7 +79,7 @@ module.exports = {
           overflow: 'auto',
           zIndex: '1000',
 
-          '&__overlay': {
+          '&-overlay': {
             display: theme('display.flex'),
             alignItems: theme('position.center'),
             justifyContent: theme('position.center'),
@@ -88,7 +88,7 @@ module.exports = {
             padding: `0 ${theme('spacing.3')}`,
           },
 
-          '&__container': {
+          '&-container': {
             position: 'relative',
             margin: `${theme('spacing.8')} auto`,
             width: theme('width.full'),
@@ -97,7 +97,7 @@ module.exports = {
             padding: theme('spacing.5'),
           },
 
-          '&__close': {
+          '&-close': {
             position: 'absolute',
             top: theme('translate.0'),
             right: theme('translate.0'),
@@ -105,15 +105,15 @@ module.exports = {
             zIndex: 1,
           },
 
-          '&__header': {
+          '&-header': {
             position: 'relative',
           },
 
-          '&__content': {
+          '&-content': {
             position: 'relative',
           },
 
-          '&__footer': {
+          '&-footer': {
             position: 'relative',
           },
         },
@@ -184,9 +184,18 @@ module.exports = {
             },
           },
 
-          '&__size': {},
+          '&-size': {
+            display: theme('display.flex'),
+            alignItems: theme('position.center'),
+            gap: theme('spacing.6'),
 
-          '&__container': {
+            '&__label': {
+              color: theme('colors.blue.700'),
+              fontSize: theme('fontSize.sm'),
+            },
+          },
+
+          '&-container': {
             display: theme('display.flex'),
             alignItems: theme('position.center'),
             justifyContent: theme('position.center'),
@@ -200,7 +209,7 @@ module.exports = {
             },
           },
 
-          '&__item': {
+          '&-item': {
             position: 'relative',
             display: theme('display.flex'),
             alignItems: theme('position.center'),
@@ -240,7 +249,7 @@ module.exports = {
           userSelect: 'none',
           cursor: theme('cursor.pointer'),
 
-          '&__container': {
+          '&-container': {
             display: theme('display.flex'),
             alignItems: theme('position.center'),
             justifyContent: theme('position.center'),
@@ -253,7 +262,7 @@ module.exports = {
             transition: '.5s',
           },
 
-          '&__dropdown': {
+          '&-dropdown': {
             display: theme('display.flex'),
             flexDirection: 'column',
             gap: theme('spacing.3'),
@@ -282,7 +291,7 @@ module.exports = {
                 color: theme('colors.blue.700'),
               },
 
-              '&__value': {
+              '&-value': {
                 fontFamily: theme('fontFamily.texta-pro'),
                 fontWeight: theme('fontWeight.medium'),
                 fontSize: theme('fontSize.base'),

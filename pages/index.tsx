@@ -2,6 +2,7 @@ import Button from 'components/Button';
 import Modal from 'components/Modal';
 import Pagination from 'components/Pagination';
 import Select from 'components/Select';
+import Tooltip from 'components/Tooltip';
 import { refreshDOM } from 'features/app/appSlice';
 import {
   addTxIfNotDuplicate,
@@ -117,7 +118,10 @@ const Home: NextPageWithLayout = () => {
         {address ? 'Disconnect' : 'Connect'} Wallet
       </Button>
 
-      <div>{address}</div>
+      <Tooltip
+        renderLink={({}) => <div>{address}</div>}
+        renderContent={() => <div>{address}</div>}
+      />
       <div>{chainId}</div>
 
       <Modal

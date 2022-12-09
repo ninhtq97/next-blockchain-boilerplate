@@ -56,8 +56,8 @@ const Pagination: React.FC<Props> = ({
   return (
     <div className="pagination">
       {withChangeSize && (
-        <div className="pagination__size flex items-center gap-[26px]">
-          <p className="size__label text-blue-700 text-sm">{sizeLable}</p>
+        <div className="pagination-size">
+          <p className="pagination-size__label">{sizeLable}</p>
           <Select
             isFilterSearch={false}
             className="text-xs min-h-[1.8rem] !px-1 !py-0.5"
@@ -70,7 +70,7 @@ const Pagination: React.FC<Props> = ({
         </div>
       )}
       <div
-        className={`pagination__container ${
+        className={`pagination-container ${
           !withChangeSize ? 'justify-center' : ''
         }`}
       >

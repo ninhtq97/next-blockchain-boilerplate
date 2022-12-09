@@ -1,3 +1,4 @@
+import { AnimatePresence, motion } from 'framer-motion';
 import useOutsideClick from 'hooks/useOutsideClick';
 import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
@@ -89,21 +90,29 @@ const Popover: React.FC<Props> = ({
         onClick: isOpen ? onClose : onOpen,
       })}
 
-      {isOpen &&
-        createPortal(
-          <div
-            className={`fixed p-5 bg-white rounded z-[9999] shadow-md max-w-fit${
-              className ? ` ${className}` : ''
-            }`}
-            ref={$popoverRef}
-            style={{
-              width: typeof width === 'number' ? `${width}px` : width,
-            }}
-          >
-            {renderContent?.({ onClose })}
-          </div>,
-          document.querySelector('body')!,
+      <AnimatePresence>
+        {isOpen && (
+          <>
+            {createPortal(
+              <motion.div
+                className={`fixed p-5 bg-white rounded z-[9999] shadow-md max-w-fit${
+                  className ? ` ${className}` : ''
+                }`}
+                ref={$popoverRef}
+                style={{
+                  width: typeof width === 'number' ? `${width}px` : width,
+                }}
+                initial={{ y: 8, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                exit={{ y: 8, opacity: 0 }}
+              >
+                {renderContent?.({ onClose })}
+              </motion.div>,
+              document.querySelector('body')!,
+            )}
+          </>
         )}
+      </AnimatePresence>
     </>
   );
 };
