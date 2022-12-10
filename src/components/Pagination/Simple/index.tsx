@@ -22,7 +22,7 @@ const SimplePagination: React.FC<Props> = ({
 
   return (
     <div className="pagination simple">
-      <div className="pagination__container">
+      <div className="pagination-container">
         {current > 0 ? (
           <Item onClick={() => goToPage(current - size)}>
             <Icon icon={<></>} />

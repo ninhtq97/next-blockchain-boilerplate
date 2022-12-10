@@ -46,9 +46,10 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 - Redux
   ```
   [x] Init store
-  [-] Manager app global state
-  [-] Manager wallet address, web3 provider, rpc provider, signer, network, balance
-  [-] Manager app global state
+  [x] Manager app global state
+  [x] Manager wallet address, web3 provider, rpc provider, signer, network, balance
+  [x] Manager contract
+  [x] Manager tx
   ```
 - DOM
   ```
@@ -68,6 +69,11 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
   [-] Loading Global
   [-] Loading Placeholder
   ```
+- Api
+  ```
+  [x] Get sign message
+  [x] Sign In
+  ```
 - Hooks
   ```
   [x] Hook app dispatch
@@ -76,18 +82,15 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
   [x] Hook disconnect wallet
   [-] Hook connect wallet with token
   [x] Hook sign message
-  [-] Hook sign in get token
   [x] Hook declare contract
   [x] Hook balance wallet
-  [-] Hook app global state
+  [x] Hook app global state
   [x] Hook allowance contract
   [x] Hook approve contract
-  [-] Hook call api
+  [x] Hook call api with catch error
   [x] Hook filter query api
   [x] Hook meta data response api
   [x] Hook outside click
-  [-] Hook get contracts
-  [-] Hook get info current wallet
+  [x] Hook get contracts
   [x] Hook debounce change
-  [-] Hook handle error
   ```
