@@ -19,6 +19,7 @@ import NestedLayout from 'layouts/NestedLayout';
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import Datepicker from 'react-tailwindcss-datepicker';
+import { TDateRange } from 'types';
 import { delay } from 'utils';
 import type { NextPageWithLayout } from './_app';
 
@@ -26,18 +27,17 @@ const Home: NextPageWithLayout = () => {
   const { connect, disconnect } = useWeb3();
   useWeb3Event();
   const dispatch = useAppDispatch();
-
   const { address, chainId } = useAppSelector(selectWeb3);
   const tx = useAppSelector(selectTx);
 
-  const [value, setValue] = useState({
-    startDate: new Date(),
-    endDate: new Date(),
+  const [value, setValue] = useState<TDateRange>({
+    startDate: null,
+    endDate: null,
   });
 
-  const handleValueChange = (newValue) => {
+  const handleValueChange = (newValue: TDateRange) => {
     console.log('newValue:', newValue);
-    setValue(newValue);
+    newValue && setValue(newValue);
   };
 
   useEffect(() => {

@@ -19,3 +19,8 @@ export type TPagination<T> = {
   data: T[];
   meta?: TMeta;
 };
+
+export type TDateRange = {
+  startDate: string | Date | null;
+  endDate: string | Date | null;
+} | null;
