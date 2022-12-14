@@ -92,5 +92,5 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
   [x] Outside click
   [x] Initial contract
   [x] Debounce change
-  [x] Indicator DOM, animate count number
+  [x] Tab
   ```
