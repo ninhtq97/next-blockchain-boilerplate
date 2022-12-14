@@ -38,10 +38,9 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 - Wallet
   ```
   [x] Handle connect to wallet
-  [-] Handle refetch balance when change wallet or network
+  [x] Handle refetch balance when change wallet or network
   [x] Handle event switch network
   [x] Handle event change wallet
-  [-] Handle event disconnect wallet
   ```
 - Redux
   ```
@@ -93,4 +92,5 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
   [x] Hook outside click
   [x] Hook get contracts
   [x] Hook debounce change
+  [x] Hook indicator DOM, animate count number
   ```

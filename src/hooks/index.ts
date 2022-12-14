@@ -1,6 +1,7 @@
 export { default as useApi } from './useApi';
 export { default as useContract } from './useContract';
 export { default as useDebounce } from './useDebounce';
+export { default as useDOM } from './useDOM';
 export { default as useERC20 } from './useERC20';
 export { default as useEthers } from './useEthers';
 export { default as useFilter } from './useFilter';
