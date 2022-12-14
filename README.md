@@ -75,22 +75,22 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
   ```
 - Hooks
   ```
-  [x] Hook app dispatch
-  [x] Hook app selector
-  [x] Hook connect wallet
-  [x] Hook disconnect wallet
-  [-] Hook connect wallet with token
-  [x] Hook sign message
-  [x] Hook declare contract
-  [x] Hook balance wallet
-  [x] Hook app global state
-  [x] Hook allowance contract
-  [x] Hook approve contract
-  [x] Hook call api with catch error
-  [x] Hook filter query api
-  [x] Hook meta data response api
-  [x] Hook outside click
-  [x] Hook get contracts
-  [x] Hook debounce change
-  [x] Hook indicator DOM, animate count number
+  [x] App dispatch
+  [x] App selector
+  [x] Connect wallet
+  [x] Disconnect wallet
+  [-] Connect wallet with token
+  [x] Sign message
+  [x] Declare contract
+  [x] Balance wallet
+  [x] App global state
+  [x] Allowance contract
+  [x] Approve contract
+  [x] Call api with catch error
+  [x] Filter query api
+  [x] Meta data response api
+  [x] Outside click
+  [x] Initial contract
+  [x] Debounce change
+  [x] Indicator DOM, animate count number
   ```
