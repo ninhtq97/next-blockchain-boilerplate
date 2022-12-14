@@ -35,13 +35,13 @@ export const addTxIfNotDuplicate =
     const currentTx = selectTx(getState());
 
     if (!currentTx[payload.type].includes(payload.tx)) {
-      dispatch(addTx(payload));
-
       if (payload.type === 'complete') {
-        Toast.success('Success');
+        Toast.success(`Tx ${payload.tx} succeed`);
         setTimeout(() => {
           dispatch(removeTx(payload));
         }, 2000);
+      } else {
+        dispatch(addTx(payload));
       }
     }
   };

@@ -39,14 +39,18 @@ const useWeb3Event = () => {
   // Event change wallet on metamask
   useEffect(() => {
     if (provider) {
-      const onAccountsChanged = async (accounts: string[]) => {
-        dispatch(setWeb3({ address: accounts[0].toLowerCase() }));
+      const onAccountsChanged = (accounts: string[]) => {
+        dispatch(
+          setWeb3({
+            address: accounts[0] ? accounts[0].toLowerCase() : undefined,
+          }),
+        );
       };
 
       provider.on('accountsChanged', onAccountsChanged);
 
       return () => {
-        if (provider.removeListener) {
+        if (provider) {
           provider.removeListener('accountsChanged', onAccountsChanged);
         }
       };
@@ -55,13 +59,13 @@ const useWeb3Event = () => {
 
   useEffect(() => {
     if (provider) {
-      const onChainChanged = async (chainId: string) => {
+      const onChainChanged = (chainId: string) => {
         dispatch(setWeb3({ chainId: +chainId }));
       };
 
       provider.on('chainChanged', onChainChanged);
       return () => {
-        if (provider.removeListener) {
+        if (provider) {
           provider.removeListener('chainChanged', onChainChanged);
         }
       };
