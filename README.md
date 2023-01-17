@@ -65,6 +65,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
   [x] Table
   [x] Pagination
   [-] Toast
+  [-] Tab
   [-] Loading Global
   [-] Loading Placeholder
   ```

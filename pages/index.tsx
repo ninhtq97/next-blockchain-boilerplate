@@ -3,6 +3,7 @@ import Modal from 'components/Modal';
 import Pagination from 'components/Pagination';
 import Select from 'components/Select';
 import Tooltip from 'components/Tooltip';
+import { addDays, subDays } from 'date-fns';
 import { refreshDOM } from 'features/app/appSlice';
 import {
   addTxIfNotDuplicate,
@@ -67,6 +68,12 @@ const Home: NextPageWithLayout = () => {
         )}
       </div>
 
+      <input type="date" name="" id="" />
+      <input type="datetime-local" name="" id="" />
+      <input type="time" name="" id="" />
+      <input type="month" name="" id="" />
+      <input type="color" name="" id="" />
+
       <Button onClick={() => dispatch(refreshDOM())}>Refresh DOM</Button>
       <Button onClick={() => dispatch(refreshDOM(2))}>Refresh Balance</Button>
 
@@ -108,6 +115,8 @@ const Home: NextPageWithLayout = () => {
         <Datepicker
           useRange={false}
           asSingle={true}
+          minDate={subDays(new Date(), 1)}
+          maxDate={addDays(new Date(), 10)}
           value={value}
           onChange={handleValueChange}
         />
