@@ -5,9 +5,7 @@ import { TWeb3Provider } from 'types';
 
 export const initialState: TWeb3Provider = {
   provider: null,
-  rpcProvider: new ethers.providers.JsonRpcProvider(
-    process.env.NEXT_PUBLIC_RPC_URL,
-  ),
+  rpcProvider: new ethers.JsonRpcProvider(process.env.NEXT_PUBLIC_RPC_URL),
   balance: {},
   status: 'idle',
 };

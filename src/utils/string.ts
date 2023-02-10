@@ -1,12 +1,13 @@
-import { BigNumber, FixedNumber } from 'ethers';
 import {
+  BigNumberish,
+  FixedNumber,
   formatUnits,
   hexlify,
-  stripZeros,
+  stripZerosLeft,
   toUtf8Bytes,
   toUtf8String,
-  zeroPad,
-} from 'ethers/lib/utils';
+  zeroPadValue,
+} from 'ethers';
 import { customAlphabet } from 'nanoid';
 
 export const capitalize = (str: string) => {
@@ -14,13 +15,13 @@ export const capitalize = (str: string) => {
   return str.charAt(0).toUpperCase() + lower.slice(1);
 };
 
-export const calcRatio = (total: BigNumber, amount: BigNumber) => {
-  if (!total || total.eq(0) || !amount || amount.eq(0)) {
-    return FixedNumber.from(0);
+export const calcRatio = (total: BigNumberish, amount: BigNumberish) => {
+  if (!total || !amount) {
+    return FixedNumber.fromValue(0);
   }
 
-  const rewardAmountFixed = FixedNumber.from(total);
-  const multiplierAmountFixed = FixedNumber.from(amount);
+  const rewardAmountFixed = FixedNumber.fromValue(total);
+  const multiplierAmountFixed = FixedNumber.fromValue(amount);
 
   return rewardAmountFixed.divUnsafe(multiplierAmountFixed);
 };
@@ -36,10 +37,10 @@ export const toBytes32 = (s: string) => {
   if (l.length > 32) {
     throw new Error('should be <= 32 acci-charracter');
   }
-  return hexlify(zeroPad(l, 32));
+  return hexlify(zeroPadValue(l, 32));
 };
 
-export const parseBytes32 = (str: string) => toUtf8String(stripZeros(str));
+export const parseBytes32 = (str: string) => toUtf8String(stripZerosLeft(str));
 
 export const toHex = (digit: number) => digit.toString(16).toUpperCase();
 
@@ -59,7 +60,7 @@ export const ordinalSuffixOf = (i: number) => {
 };
 
 export const formatBigNumberToFixed = (
-  number: BigNumber,
+  number: BigNumberish,
   displayDecimals = 18,
   decimals = 18,
 ) => {

@@ -12,6 +12,7 @@ import {
   selectTx,
 } from 'features/tx/txSlice';
 import { selectWeb3 } from 'features/web3/web3Slice';
+import { motion, Variants } from 'framer-motion';
 import { useAppDispatch, useAppSelector } from 'hooks';
 import useWeb3 from 'hooks/useWeb3';
 import useWeb3Event from 'hooks/useWeb3Event';
@@ -24,12 +25,23 @@ import { TDateRange } from 'types';
 import { delay } from 'utils';
 import type { NextPageWithLayout } from './_app';
 
+const itemVariants: Variants = {
+  open: {
+    opacity: 1,
+    y: 0,
+    transition: { type: 'spring', stiffness: 300, damping: 24 },
+  },
+  closed: { opacity: 0, y: 20, transition: { duration: 0.2 } },
+};
+
 const Home: NextPageWithLayout = () => {
   const { connect, disconnect } = useWeb3();
   useWeb3Event();
   const dispatch = useAppDispatch();
   const { address, chainId } = useAppSelector(selectWeb3);
   const tx = useAppSelector(selectTx);
+
+  const [isOpen, setIsOpen] = useState(false);
 
   const [value, setValue] = useState<TDateRange>({
     startDate: null,
@@ -161,6 +173,93 @@ const Home: NextPageWithLayout = () => {
           console.log('Selected:', selected);
         }}
       />
+
+      <motion.nav
+        initial={false}
+        animate={isOpen ? 'open' : 'closed'}
+        className="bg-blue-500 w-80 mt-1 p-3"
+      >
+        <motion.button
+          whileTap={{ scale: 0.97 }}
+          onClick={() => setIsOpen(!isOpen)}
+          className="flex justify-between items-center w-full bg-white rounded-[10px] px-2 py-1 text-lg text-blue-500 mb-[10px]"
+        >
+          Menu
+          <motion.div
+            variants={{
+              open: { rotate: 180 },
+              closed: { rotate: 0 },
+            }}
+            transition={{ duration: 0.2 }}
+            style={{ originY: 0.55 }}
+          >
+            <svg width="15" height="15" viewBox="0 0 20 20">
+              <path d="M0 7 L 20 7 L 10 16" className="fill-current" />
+            </svg>
+          </motion.div>
+        </motion.button>
+        <motion.ul
+          className="flex flex-col gap-[10px] bg-white p-[10px] rounded-[10px]"
+          variants={{
+            open: {
+              originX: '50%',
+              originY: 0,
+              scale: 1,
+              // clipPath: 'inset(0% 0% 0% 0% round 10px)',
+              transition: {
+                type: 'spring',
+                bounce: 0,
+                duration: 0.7,
+                delayChildren: 0.3,
+                staggerChildren: 0.05,
+              },
+            },
+            closed: {
+              originX: '50%',
+              originY: 0,
+              scale: 0,
+              // clipPath: 'inset(10% 50% 90% 50% round 10px)',
+              transition: {
+                type: 'spring',
+                bounce: 0,
+                duration: 0.3,
+              },
+            },
+          }}
+          style={{ pointerEvents: isOpen ? 'auto' : 'none' }}
+        >
+          <motion.li
+            className="p-[10px] cursor-pointer text-blue-500 rounded-[10px] duration-500 hover:bg-blue-500 hover:bg-opacity-10"
+            variants={itemVariants}
+          >
+            Item 1{' '}
+          </motion.li>
+          <motion.li
+            className="p-[10px] cursor-pointer text-blue-500 rounded-[10px] duration-500 hover:bg-blue-500 hover:bg-opacity-10"
+            variants={itemVariants}
+          >
+            Item 2{' '}
+          </motion.li>
+          <motion.li
+            className="p-[10px] cursor-pointer text-blue-500 rounded-[10px] duration-500 hover:bg-blue-500 hover:bg-opacity-10"
+            variants={itemVariants}
+          >
+            Item 3{' '}
+          </motion.li>
+          <motion.li
+            className="p-[10px] cursor-pointer text-blue-500 rounded-[10px] duration-500 hover:bg-blue-500 hover:bg-opacity-10"
+            variants={itemVariants}
+          >
+            Item 4{' '}
+          </motion.li>
+          <motion.li
+            className="p-[10px] cursor-pointer text-blue-500 rounded-[10px] duration-500 hover:bg-blue-500 hover:bg-opacity-10"
+            variants={itemVariants}
+          >
+            Item 5{' '}
+          </motion.li>
+        </motion.ul>
+      </motion.nav>
     </div>
   );
 };
